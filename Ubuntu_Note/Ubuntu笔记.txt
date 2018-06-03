@@ -8,3 +8,69 @@
  1）设置root密码
   a)进入root账户
   b)sudo passwd root
+
+3、设置自定义环境变量：/etc/ld.so.conf.d/libzou.conf
+  a)将库放在自定义目录，例如：/zou/lib
+  b)libzou.conf拷贝到目录/etc/ld.so.conf.d/
+  c)libzou.conf内容（可以放多个目录）：
+    /zou/lib
+    /usr/local/QtAndroid/jdk1.8.0_92/lib
+    /usr/local/QtAndroid/jdk1.8.0_92/bin
+
+4、挂载U盘
+ 1)方法1：查看设备信息
+ cat /proc/partitions
+ 2)方法2：sudo fdisk -l(或者单独看某个盘的信息：sudo fdisk /dev/sdb1)
+ 3)挂载USB 
+ sudo mount -t auto /dev/* /media/cdrom
+ 4）卸载USB
+   a).找出USB占用
+    sudo fuser /media /cdrom
+   b).sudo kill number
+   c).sudo mount /media/cdrom
+
+5、挂载exfat格式U盘
+sudo apt-get -f install
+sudo apt-get install exfat-fuse
+
+6、开机自启动程序
+
+
+7、
+
+xx、解决问题
+1）解决ubuntu E: 无法获得锁 /var/lib/apt/lists/lock - open (11: 资源暂时不可用) 
+sudo rm -f /var/lib/apt/lists/lock
+
+00、其他技巧
+1）ls|more
+在console下可以用shift+[pageUp|pageDn]来翻页
+2）远程控制：安装：sudo apt-get install putty
+3)开机自启动程序
+Dash中搜索启动
+4)寻找文件
+终端输入whereis *.*
+5）切换用户
+sudo su root
+
+6）安装ssh:
+SSH可以有效防止远程管理过程中的信息泄露，专为远程登录会话和其他网络服务提供安全性的协议
+dpkg -l | grep ssh
+这里我们可以看到，系统显示已经安装了openssh-client，但是没有openssh-server。
+sudo apt-get install openssh-client
+sudo apt-get install openssh-server
+如果出现以上所以，说明安装被打断，要使用提示的sudo dpkg  --configure -a进行安装：
+我们就手动执行以下命令:
+sudo dpkg --configure -a
+再返回安装openssh-client和openssh-server，在终端使用下列命令进行安装：
+sudo apt-get install ssh
+现在我们可以看到系统已经安装了openssh-client和openssh-server。
+sudo /etc/init.d/ssh start
+系统显示：[ ok ] Starting ssh (via systemctl): ssh.service.说明已经启动了SSH服务。
+如果你想停止ssh服务，则执行以下命令即可:
+sudo /etc/init.d/ssh stop：
+接着我们通过ifconfig命令，查看系统的ip地址，ssh的端口号一般为
+图中所框选的ip就是我们系统的IP地址
+接下来我们就可以在我们的windows系统中打开ssh客户端软件，这里小编喜欢使用Putty，输入ubuntu系统的ip地址（192.168.204.128）和端口（22）
+然后在弹出的窗口中根据提示输入账户和密码，就可以通过ssh登录到ubuntu系统中，并远程执行各种命令操作。
+密码输入不显示，直接enter继续即可。
