@@ -3,3 +3,8 @@
  a)sudo gedit /etc/default/grub
  b)GRUB_DEFAULT=0改为4：默认启动Windows的ID
  c)sudo update-grub
+ 
+2、配置
+ 1）设置root密码
+  a)进入root账户
+  b)sudo passwd root
