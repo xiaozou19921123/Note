@@ -1,0 +1,24 @@
+一.Pro文件属性设置
+1.指定生成的应用程序放置的目录
+DESTDIR += ../bin
+2.设置当前目录
+DESTDIR +=$$PWD\bin
+MOC_DIR = temp/moc
+RCC_DIR = temp/rcc
+UI_DIR  = temp/ui
+OBJECTS_DIR = bin
+3.指定生成的应用程序名
+TARGET = pksystem
+4.配置信息
+1)添加控制台
+CONFIG +=console
+2）添加C++11标准
+CONFIG   += c++11
+3）添加预处理器命令
+DEFINES += DLIB_PNG_SUPPORT \
+           DLIB_JPEG_SUPPORT
+二.Ubuntu下使用Qt5
+1.解决 Unknown module(s) in QT: multimedia 
+sudo apt-get install qtmultimedia5-dev
+sudo apt-get install libqt5multimedia5-plugins
+

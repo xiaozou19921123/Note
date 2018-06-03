@@ -36,11 +36,38 @@ sudo apt-get install exfat-fuse
 6、开机自启动程序
 
 
-7、
+7、杀死进程到方法：[学习很多关于管道到基础]
+1. 方法一 pgrep
+pgrep 程序名（名字可以不用打全）
+sudo kill PID号
+2. 方法二：pidof 程序名（名字必须全名）
 
-xx、解决问题
-1）解决ubuntu E: 无法获得锁 /var/lib/apt/lists/lock - open (11: 资源暂时不可用) 
-sudo rm -f /var/lib/apt/lists/lock
+3.方法三
+$ps -ef | grep firefox | grep -v grep | cut -c 9-15 | xargs kill -s 9
+说明：
+“grep firefox”的输出结果是，所有含有关键字“firefox”的进程。
+“grep -v grep”是在列出的进程中去除含有关键字“grep”的进程。
+“cut -c 9-15”是截取输入行的第9个字符到第15个字符，而这正好是进程号PID。
+“xargs kill -s 9”中的xargs命令是用来把前面命令的输出结果（PID）作为“kill -s 9”命令的参数，并执行该命令。“kill -s 9”会强行杀掉指定进程。
+4.方法四 一行命令删除(不用打全名)
+pgrep firefox | xargs kill -s 9
+
+5.方法五                   
+$ ps -ef | grep knowthelist | awk '{print $2}' | xargs kill -9
+其中awk '{print $2}' 的作用就是打印（print）出第二列的内容。根据常规篇，可以知道ps输出的第二列正好是PID。就把进程相应的PID通过xargs传递给kill作参数，杀掉对应的进程。
+6.方法六
+kill -s 9 `ps -aux | grep knowthelist | awk '{print $2}'`
+7.方法七
+kill -s 9 `pgrep knowthelist`
+8.方法八
+pkill -9 knowthelist
+pgrep和kill！pkill＝pgrep+kill。
+说明："-9" 即发送的信号是9，pkill与kill在这点的差别是：pkill无须 “ｓ”，终止信号等级直接跟在 “-“ 后面。之前我一直以为是 "-s 9"，结果每次运行都无法终止进程
+9.方法九
+killall -9 firefox
+killall和pkill是相似的,不过如果给出的进程名不完整，killall会报错。pkill或者pgrep只要给出进程名的一部分就可以终止进程。
+
+
 
 00、其他技巧
 1）ls|more

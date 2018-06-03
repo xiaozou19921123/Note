@@ -1,0 +1,3 @@
+QMessageBox::warning(0, "红外摄像头设备启动失败",
+                 "请检查红外摄像头设备", QMessageBox::Ok);
+
