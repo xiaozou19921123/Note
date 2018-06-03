@@ -1,5 +1,0 @@
-1、/etc/default/grub
- 1)设置默认启动windows系统
- a)sudo gedit /etc/default/grub
- b)GRUB_DEFAULT=0改为4：默认启动Windows的ID
- c)sudo update-grub
