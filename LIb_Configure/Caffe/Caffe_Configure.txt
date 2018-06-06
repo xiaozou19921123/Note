@@ -1,0 +1,40 @@
+(一)Ubuntu CPU版本
+1、配置依赖库
+sudo apt-get update
+sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler
+sudo apt-get install --no-install-recommends libboost-all-dev
+sudo apt-get install libopenblas-dev liblapack-dev libatlas-base-dev
+sudo apt-get install libgflags-dev libgoogle-glog-dev liblmdb-dev libleveldb-dev
+sudo apt-get install git cmake build-essential
+
+apt-get install libprotobuf-dev   
+apt-get install libleveldb-dev   
+apt-get install libsnappy-dev   
+apt-get install libopencv-dev   
+apt-get install libhdf5-serial-dev   
+apt-get install protobuf-compiler  
+apt-get install --no-install-recommends libboost-all-dev 
+
+下载库说明：
+build-essential：编译程序必须的软件包，依赖libc6-dev，gcc，g++，make，dpkg-dev等
+pkg-config: 用于获得某一个库/模块的所有编译相关的信息
+libprotobuf-dev: Google Protecol Buffer简称Protobuf，是一种轻便高效的结构化数据存储格式。caffe利用Protobuf定义网络模型
+libleveldb-dev libhdf5-serial-dev liblmdb-dev ：caffe支持的三种数据库：LevelDB，HDF5和LMDB
+libsnappy-dev: Snappy是一个压缩/解压缩库，旨在获得高速的压缩和合理的压缩率。
+libatlas-base-dev：基本线性代数子库，Intel/caffe使用的是MKL
+libboost-all-dev：boost库，C++的准标准库
+libgflags-dev： 处理命令行参数
+libgoogle-glog-dev： 日志库
+
+2、下载Caffe
+git clone https://github.com/BVLC/caffe.git
+进入下载caffe主目录
+sudo cp Makefile.config.example Makefile.config
+修改下面几行
+CPU_ONLY := 1
+INCLUDE_DIRS := $(PYTHON_INCLUDE) /usr/local/include /usr/include/hdf5/serial
+LIBRARY_DIRS := $(PYTHON_LIB) /usr/local/lib /usr/lib /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/hdf5/serial
+
+make all -j8
+sudo make test
+sudo make runtest
