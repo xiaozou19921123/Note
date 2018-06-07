@@ -1,0 +1,96 @@
+---------------------------------------------------------------------
+pro文件有以下关键字：TEMPLATE、TARGET、DESTDIR、DEPENDPATH、INCLUDEPATH、SOURCES、HEADERS、FORMS、LIBS、TRASHLATIONS、RESOURCES、CONFIG、UI_DIR、RCC_DIR、MOC_DIR、OBJECTS_DIR、DEFINES
+DEPENDPATH：工程的依赖路径
+TRASHLATIONS：加载要用到的语言翻译*.ts文件
+UI_DIR：UIC将ui转化为头文件所存放的目录
+RCC_DIR：RCC将qrc文件转化为头文件所存放的目录；
+MOC_DIR：MOC命令将含Q_OBJECT的头文件转换为标准的头文件存放的目录；
+OBJECTS_DIR：生成的目标文件存放的目录；
+RC_FILE = xxx.icns //程序中所用到的图片等资源文件；
+
+---------------------------------------------------------------------
+QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+TARGET = caffeTest  #生成目标的名字
+TEMPLATE = app  #
+
+SOURCES += main.cpp\
+        mainwindow.cpp
+
+HEADERS  += mainwindow.h \
+    cafe_net.h
+
+FORMS    += mainwindow.ui
+
+
+INCLUDEPATH += /usr/include \
+              /usr/include/opencv \
+              /usr/include/opencv2
+
+DESTDIR += ../bin  #指定可执行文件生成的目录
+OBJECTS_DIR += ../tmp #obj文件存放目录，即编译生成的中间文件
+$$PWD：pro文件所在目录
+
+win32   #平台选择
+{
+    SOURCES += 1.cpp
+}
+else
+{
+    SOURCES += 2.cpp
+}
+或
+win32
+{
+SOURCES+= hello_win.cpp //win平台
+}   
+unix
+{
+SOURCES+= hello_linux.cpp //unix/linux平台
+}
+
+CONFIG +=debug_and_release #工程同时用调试和发布模式编译
+CONFIG(debug,debug|release){
+TARGET= hello_debug
+DESTDIR= ./debug
+}else{
+TARGET= hello_release
+DESTDIR= ./release
+}
+
+Release:LIBS+= -L folderPath // release 版引入的lib文件路径
+Debug:LIBS+= -L folderPath // Debug 版引入的lib 文件路径
+
+------------------------------------------------------------------------------------------------
+格式：			  
+LIBS += -L 库目录1 库目录2 库目录3\
+		-l库1 -l库2 -l库3
+案例：
+LIBS += -L/usr/lib -L/usr/lib/x86_64-linux-gnu -L/home/zou/GitHub/caffe -L/home/zou/GitHub/caffe/build/lib \
+        -lopencv_highgui -lopencv_core -lopencv_imgproc \   #opencv
+        -lglog -lgflags -lprotobuf -lboost_system -lboost_thread -llmdb -lleveldb -lstdc++ -lcblas -latlas \ #others lib
+        -lcaffe
+------------------------------------------------------------------------------------------------	
+CONFIG += console c++11
+warn_on:编译器输出尽可能多的警告信息
+warn_off:编译器输出尽可能少的警告信息
+thread:应用程序是一个多线程程序
+x11：应用程序是一个x11应用程序或库
+windows：只用于app模版，应用程序是一个windows下的窗口程序
+dll:只用于lib模板，库是一个共享库
+staticlib:只用于lib模板，库是一个静态库
+plugin：只用于lib模板，库是一个插件，这将会使dll选项生效
+qt：应用程序是一个Qt应用程序，并且Qt库将会被连接
+release:应用程序将以release模式连编
+
+------------------------------------------------------------------------------------------------
+
+DEFINES += CPU_ONLY    #预编译宏，定义预编译变量
+DEFINES += CPU_ONLY=1
+
+
+-------------------------
+待解决：
+LIBS+= -L"$(OUtDir)" -L"$(SolutionDir)lib"

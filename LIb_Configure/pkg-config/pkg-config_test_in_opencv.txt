@@ -1,0 +1,38 @@
+#-------------------------------------------------
+#
+# Project created by QtCreator 2015-08-30T02:04:20
+#
+#-------------------------------------------------
+QT       += core gui
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+TARGET = MyTarget
+TEMPLATE = app
+
+#CONFIG += static;
+CONFIG+=link_pkgconfig
+
+SOURCES += main.cpp\
+        mainwindow.cpp \
+    alogrithmmodel.cpp \
+    alogrithmcontroller.cpp \
+    histogram.cpp \
+    colorhistogram.cpp \
+    objectfinder.cpp \
+    morphofeatures.cpp
+
+HEADERS  += mainwindow.h \
+    alogrithmmodel.h \
+    alogrithmcontroller.h \
+    histogram.h \
+    colorhistogram.h \
+    objectfinder.h \
+    imagecomparator.h \
+    morphofeatures.h
+
+FORMS    += mainwindow.ui
+
+INCLUDEPATH +=/opt/OpenCV/include \
+                             /opt/OpenCV/include/opencv \
+                             /opt/OpenCV/include/opencv2
+
+PKGCONFIG=opencv  #此选项会调用${OPENCV_HOME}/lib/pkgconfig里面opencv.pc中列举的相关头文件和库路径
