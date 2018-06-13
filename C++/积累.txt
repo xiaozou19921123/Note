@@ -20,5 +20,7 @@ struct TrieNode
 	TrieNode():path(0),end(0){ memset(map, 0, sizeof(map)); }
 	//TrieNode() :path(0), end(0){ memset(map, 0, 4*26); }
 };
-
+3¡¢memset
+int m[N][N];  
+memset(m,0,sizeof(m)); 
 
