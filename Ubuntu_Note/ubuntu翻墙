@@ -1,0 +1,9 @@
+sudo add-apt-repository ppa:hzwhuang/ss-qt5
+sudo apt-get update
+sudo apt-get install shadowsocks-qt5
+
+
+浏览器网络设置
+SOCKS主机：127.0.0.1  端口：1080
+系统设置——网络——网络代理——手动
+Socks主机：127.0.0.1  端口：1080
