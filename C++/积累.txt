@@ -1,0 +1,26 @@
+1、string转char*
+1)方法1
+const char* chs = word.data();
+2)方法2
+char chs[100];
+strcpy_s(chs, word.c_str());
+
+2、struct内初始化指针数组
+1）struct内初始化指针数组
+2）struct内建立自己类的指针对象、注意不能建立实例对象
+
+struct TrieNode
+{
+	int path;//有多少个字符划过节点，即沿途经过的节点，即多少个字符共享
+	int end;//有多少个字符串结尾
+	//vector<Node*> nodes;
+	/*Node *map[26];
+	TrieNode(){ memset(map, 0, 4 * 26); };*/
+	TrieNode *map[26];
+	TrieNode():path(0),end(0){ memset(map, 0, sizeof(map)); }
+	//TrieNode() :path(0), end(0){ memset(map, 0, 4*26); }
+};
+3、memset
+int m[N][N];  
+memset(m,0,sizeof(m)); 
+
